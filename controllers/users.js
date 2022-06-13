@@ -11,6 +11,13 @@ const getUsers = AsyncErrorHandler(async (req, res, next) => {
     users
   });
 })
+const deleteUsers = AsyncErrorHandler(async (req, res, next) => {
+  await User.deleteMany({});
+  res.json({
+    status: 'success',
+    users: []
+  });
+})
 const addUser = AsyncErrorHandler(async (req, res, next) => {
   let {email, name, password, confirmPassword} = req.body;
   password = validator.trim(password);
@@ -41,8 +48,29 @@ const addUser = AsyncErrorHandler(async (req, res, next) => {
     token
   })
 })
+const signIn = AsyncErrorHandler(async (req, res, next) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({email}).select('+password');
+
+  if (!email || !password) return AppError(400, '資料欄位不能為空！', next);
+  if (!validator.isEmail(email)) return AppError(400, '電子信箱不符合格式！', next);
+  if (!user) return AppError(400, '找不到該使用者！', next);
+  const isChecked = await bcrypt.compare(password, user.password);
+  if (!isChecked) return AppError(400, '帳號或密碼錯誤請重新嘗試！', next);
+
+  const token = await jwt.sign({id:user._id}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_EXPIRATION}); 
+  user.password = undefined;
+
+  res.json({
+    status: 'success',
+    user,
+    token
+  })
+})
 
 module.exports = {
   getUsers,
-  addUser
+  deleteUsers,
+  addUser,
+  signIn
 }
