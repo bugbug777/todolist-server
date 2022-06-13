@@ -2,8 +2,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+require('dotenv').config();
 const mongoose = require('mongoose');
-
 var usersRouter = require('./routes/users');
 
 mongoose.connect('mongodb://localhost:27017/todolist').then((res) => {
@@ -53,9 +53,13 @@ app.use((err, req, res, next) => {
 
   // 已部署
   if (process.env.NODE_ENV === 'production') {
+    if (err.name === 'TypeError') {
+      err.isOperational = true;
+      err.message = '資料型別錯誤，請檢查輸入的資料型別！';
+    }
     if (err.name === 'SyntaxError') {
       err.isOperational = true;
-      err.message = '語法錯誤，請檢查資料格式！'
+      err.message = '語法錯誤，請檢查資料格式！';
     }
     if (err.isOperational) {
       res.status(statusCode).json({
