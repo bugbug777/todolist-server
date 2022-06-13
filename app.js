@@ -4,6 +4,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require('dotenv').config();
 const mongoose = require('mongoose');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger-output.json');
 var usersRouter = require('./routes/users');
 
 mongoose.connect('mongodb://localhost:27017/todolist').then((res) => {
@@ -29,6 +31,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/users', usersRouter);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((req, res, next) => {
   res.status(404).json({
