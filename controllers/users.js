@@ -32,6 +32,7 @@ const addUser = AsyncErrorHandler(async (req, res, next) => {
   });
   newUser.password = undefined;
   
+  // 取得 JWT
   const token = await jwt.sign({id:newUser._id}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_EXPIRATION});
   
   res.json({
