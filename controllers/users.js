@@ -17,6 +17,7 @@ const addUser = AsyncErrorHandler(async (req, res, next) => {
 
   if (!email || !name || !password) return AppError(400, '資料欄位不能為空！', next);
   if (!validator.isEmail(email)) return AppError(400, '電子信箱不符合格式！', next);
+  if (await User.findOne({email})) return AppError(400, '該電子信箱已註冊！', next);
   if (!validator.isLength(name, {min:2})) return AppError(400, '暱稱欄位必須輸入至少兩個字元以上！', next);
   if (!validator.isLength(password, {min:8, max:16})) return AppError(400, '密碼長度必須介於 8 到 16 個字元之間！', next);
   if (password !== confirmPassword) return AppError(400, '密碼前後不一致！', next);
