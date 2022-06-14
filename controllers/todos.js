@@ -55,9 +55,20 @@ const deleteTodos = AsyncErrorHandler(async (req, res, next) => {
   })
 })
 
+const deleteTodo = AsyncErrorHandler(async (req, res, next) => {
+  const { todoId } = req.params;
+  const todoDeleted = await Todo.findByIdAndDelete(todoId);
+
+  res.json({
+    status: 'success',
+    todo: todoDeleted
+  })
+})
+
 module.exports = {
   getTodos,
   addTodo,
   editTodo,
-  deleteTodos
+  deleteTodos,
+  deleteTodo
 }
