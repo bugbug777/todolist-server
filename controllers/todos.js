@@ -29,7 +29,16 @@ const addTodo = AsyncErrorHandler(async (req, res, next) => {
   })
 })
 
+const deleteTodos = AsyncErrorHandler(async (req, res, next) => {
+  await Todo.deleteMany({});
+  res.json({
+    status: 'success',
+    todos: []
+  })
+})
+
 module.exports = {
   getTodos,
-  addTodo
+  addTodo,
+  deleteTodos
 }
