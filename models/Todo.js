@@ -4,7 +4,6 @@ const todoSchema = new db.Schema(
   {
     userId: {
       type: db.ObjectId,
-      ref: 'User',
       required: [true, '待辦事項擁有者為必要項目！'],
     },
     content: {

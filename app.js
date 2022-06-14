@@ -70,6 +70,10 @@ app.use((err, req, res, next) => {
       err.isOperational = true;
       err.message = '沒有該名使用者，請檢查 User ID 格式！';
     }
+    if (err.name === 'JsonWebTokenError') {
+      err.isOperational = true;
+      err.message = '使用了無效的 token，請檢查 token 格式！';
+    }
     if (err.isOperational) {
       res.status(statusCode).json({
         status: 'false',

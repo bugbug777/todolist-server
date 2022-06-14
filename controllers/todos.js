@@ -1,9 +1,9 @@
-const User = require('../models/User');
 const Todo = require('../models/Todo');
 const { AsyncErrorHandler, AppError } = require('../services/errorHandler');
 
 const getTodos = AsyncErrorHandler(async (req, res, next) => {
-  const todos = await Todo.find();
+  const userId = req.user._id;
+  const todos = await Todo.find({ userId });
   res.json({
     status: 'success',
     todos
@@ -11,16 +11,14 @@ const getTodos = AsyncErrorHandler(async (req, res, next) => {
 })
 
 const addTodo = AsyncErrorHandler(async (req, res, next) => {
-  const { userId, content, status } = req.body;
-  const user = await User.findById(userId);
+  const userId = req.user._id;
+  const { content } = req.body;
 
-  if (!user) return AppError(400, '找不到該名使用者！', next);
   if (!content) return AppError(400, '待辦內容不能為空！', next);
 
   const newTodo = await Todo.create({
     userId,
-    content,
-    status
+    content
   })
 
   res.json({
