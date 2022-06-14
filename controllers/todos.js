@@ -1,5 +1,5 @@
-const User = require('../models/UserModel');
-const Todo = require('../models/TodoModel');
+const User = require('../models/User');
+const Todo = require('../models/Todo');
 const { AsyncErrorHandler, AppError } = require('../services/errorHandler');
 
 const getTodos = AsyncErrorHandler(async (req, res, next) => {

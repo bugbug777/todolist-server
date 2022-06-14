@@ -1,7 +1,7 @@
 const validator = require('validator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../models/UserModel');
+const User = require('../models/User');
 const { AppError, AsyncErrorHandler } = require('../services/errorHandler');
 
 const getUsers = AsyncErrorHandler(async (req, res, next) => {

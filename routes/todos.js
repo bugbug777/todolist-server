@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
 const TodoController = require('../controllers/todos');
+const { authCheck } = require('../modules/auth');
 
-router.get('/', TodoController.getTodos
+router.get('/', authCheck, TodoController.getTodos
   /*
     #swagger.description = '取得所有待辦事項'
     #swagger.responses[200] = {
@@ -22,7 +23,7 @@ router.get('/', TodoController.getTodos
     }
   */
 );
-router.post('/', TodoController.addTodo
+router.post('/', authCheck, TodoController.addTodo
   /*
     #swagger.description = '取得所有待辦事項'
     #swagger.parameters = {
@@ -56,7 +57,7 @@ router.post('/', TodoController.addTodo
     }
   */
 );
-router.put('/:todoId', TodoController.editTodo
+router.put('/:todoId', authCheck, TodoController.editTodo
   /*
     #swagger.description = '編輯待辦事項'
     #swagger.parameters = {
@@ -89,7 +90,7 @@ router.put('/:todoId', TodoController.editTodo
     }
   */
 );
-router.delete('/', TodoController.deleteTodos
+router.delete('/', authCheck, TodoController.deleteTodos
   /*
     #swagger.description = '刪除所有待辦事項'
     #swagger.responses[200] = {
@@ -101,7 +102,7 @@ router.delete('/', TodoController.deleteTodos
     }
   */
 );
-router.delete('/:todoId', TodoController.deleteTodo
+router.delete('/:todoId', authCheck, TodoController.deleteTodo
   /*
     #swagger.description = '刪除待辦事項'
     #swagger.responses[200] = {
