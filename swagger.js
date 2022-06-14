@@ -2,8 +2,8 @@ const swaggerAutogen = require('swagger-autogen')();
 
 const doc = {
   info: {
-    title: 'My API',
-    description: 'Description',
+    title: '待辦事項',
+    description: '待辦事項 RESTful API Docs.',
   },
   host: 'localhost:3000',
   schemes: ['http'],

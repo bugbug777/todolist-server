@@ -59,6 +59,8 @@ const deleteTodo = AsyncErrorHandler(async (req, res, next) => {
   const { todoId } = req.params;
   const todoDeleted = await Todo.findByIdAndDelete(todoId);
 
+  if (!todoDeleted) return AppError(400, '找不到該筆待辦事項！', next);
+
   res.json({
     status: 'success',
     todo: todoDeleted

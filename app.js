@@ -31,8 +31,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/users', usersRouter /* #swagger.tags = ['User'] */);
-app.use('/todos', todosRouter /* #swagger.tags = ['Todo'] */)
+app.use('/users', usersRouter /* #swagger.tags = ['User - 使用者'] */);
+app.use('/todos', todosRouter /* #swagger.tags = ['Todo - 待辦事項'] */)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((req, res, next) => {

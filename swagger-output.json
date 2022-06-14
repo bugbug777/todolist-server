@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "My API",
-    "description": "Description",
+    "title": "待辦事項",
+    "description": "待辦事項 RESTful API Docs.",
     "version": "1.0.0"
   },
   "host": "localhost:3000",
@@ -14,7 +14,7 @@
     "/users/": {
       "get": {
         "tags": [
-          "User"
+          "User - 使用者"
         ],
         "description": "取得所有使用者",
         "parameters": [],
@@ -62,7 +62,7 @@
       },
       "delete": {
         "tags": [
-          "User"
+          "User - 使用者"
         ],
         "description": "刪除所有使用者",
         "parameters": [],
@@ -93,7 +93,7 @@
     "/users/sign_up": {
       "post": {
         "tags": [
-          "User"
+          "User - 使用者"
         ],
         "description": "使用者註冊",
         "parameters": [
@@ -197,7 +197,7 @@
     "/users/sign_in": {
       "post": {
         "tags": [
-          "User"
+          "User - 使用者"
         ],
         "description": "使用者登入",
         "parameters": [
@@ -227,7 +227,7 @@
         ],
         "responses": {
           "200": {
-            "description": "成功取得所有使用者",
+            "description": "登入成功！",
             "schema": {
               "type": "object",
               "properties": {
@@ -267,7 +267,7 @@
             }
           },
           "400": {
-            "description": "未註冊使用者",
+            "description": "登入失敗！",
             "schema": {
               "type": "object",
               "properties": {
@@ -278,6 +278,351 @@
                 "message": {
                   "type": "string",
                   "example": "找不到該使用者！"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/todos/": {
+      "get": {
+        "tags": [
+          "Todo - 待辦事項"
+        ],
+        "description": "取得所有待辦事項",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功取得所有待辦事項",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "todos": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "example": "62a8b09a28a181801f060c97"
+                      },
+                      "userId": {
+                        "type": "string",
+                        "example": "62a88dac16546e18ff6321c3"
+                      },
+                      "content": {
+                        "type": "string",
+                        "example": "美麗新世界！"
+                      },
+                      "status": {
+                        "type": "boolean",
+                        "example": false
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "example": "2022-06-14T16:00:26.587Z"
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Todo - 待辦事項"
+        ],
+        "description": "取得所有待辦事項",
+        "parameters": [
+          {
+            "name": "200",
+            "in": "body",
+            "description": "資料格式",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "type": "string",
+                  "example": "62a88dac16546e18ff6321c3"
+                },
+                "content": {
+                  "type": "string",
+                  "example": "美麗新世界！"
+                }
+              },
+              "required": [
+                "userId",
+                "content"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "新增成功！",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "todo": {
+                  "type": "object",
+                  "properties": {
+                    "userId": {
+                      "type": "string",
+                      "example": "62a88dac16546e18ff6321c3"
+                    },
+                    "content": {
+                      "type": "string",
+                      "example": "美麗新世界！"
+                    },
+                    "status": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "_id": {
+                      "type": "string",
+                      "example": "62a8b09a28a181801f060c97"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2022-06-14T16:00:26.587Z"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "新增失敗！",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "待辦內容不能為空！"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Todo - 待辦事項"
+        ],
+        "description": "刪除所有待辦事項",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功刪除所有待辦事項",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "todos": {
+                  "type": "array",
+                  "example": [],
+                  "items": {}
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/todos/{todoId}": {
+      "put": {
+        "tags": [
+          "Todo - 待辦事項"
+        ],
+        "description": "編輯待辦事項",
+        "parameters": [
+          {
+            "name": "todoId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "200",
+            "in": "body",
+            "description": "資料格式",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "content": {
+                  "type": "string",
+                  "example": "被編輯的美麗新世界！"
+                }
+              },
+              "required": [
+                "content"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "修改成功！",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "todo": {
+                  "type": "object",
+                  "properties": {
+                    "userId": {
+                      "type": "string",
+                      "example": "62a88dac16546e18ff6321c3"
+                    },
+                    "content": {
+                      "type": "string",
+                      "example": "美麗新世界！"
+                    },
+                    "status": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "_id": {
+                      "type": "string",
+                      "example": "62a8b09a28a181801f060c97"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2022-06-14T16:00:26.587Z"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "新增失敗！",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "待辦內容不能為空！"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Todo - 待辦事項"
+        ],
+        "description": "刪除待辦事項",
+        "parameters": [
+          {
+            "name": "todoId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "刪除成功！ 回傳被刪除的待辦事項物件。",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "todo": {
+                  "type": "object",
+                  "properties": {
+                    "userId": {
+                      "type": "string",
+                      "example": "62a88dac16546e18ff6321c3"
+                    },
+                    "content": {
+                      "type": "string",
+                      "example": "美麗新世界！"
+                    },
+                    "status": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "_id": {
+                      "type": "string",
+                      "example": "62a8b09a28a181801f060c97"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2022-06-14T16:00:26.587Z"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "刪除失敗！",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "找不到該筆待辦事項！"
                 }
               },
               "xml": {

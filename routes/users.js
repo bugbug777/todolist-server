@@ -83,7 +83,7 @@ router.post('/sign_in', userController.signIn
       }
     }
     #swagger.responses[200] = {
-        description: '成功取得所有使用者',
+        description: '登入成功！',
         schema: {
           "status": "success",
           "user": {
@@ -96,7 +96,7 @@ router.post('/sign_in', userController.signIn
         }
       }
     #swagger.responses[400] = {
-        description: '未註冊使用者',
+        description: '登入失敗！',
         schema: {
           "status": "false",
           "message": "找不到該使用者！"
