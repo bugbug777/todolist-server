@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger-output.json');
 var usersRouter = require('./routes/users');
+var todosRouter = require('./routes/todos');
 
 mongoose.connect('mongodb://localhost:27017/todolist').then((res) => {
   console.log('資料庫連線成功！');
@@ -31,6 +32,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/users', usersRouter /* #swagger.tags = ['User'] */);
+app.use('/todos', todosRouter /* #swagger.tags = ['Todo'] */)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((req, res, next) => {
@@ -63,6 +65,10 @@ app.use((err, req, res, next) => {
     if (err.name === 'SyntaxError') {
       err.isOperational = true;
       err.message = '語法錯誤，請檢查資料格式！';
+    }
+    if (err.name === 'CastError') {
+      err.isOperational = true;
+      err.message = '沒有該名使用者，請檢查 User ID 格式！';
     }
     if (err.isOperational) {
       res.status(statusCode).json({
