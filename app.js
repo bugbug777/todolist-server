@@ -2,16 +2,13 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-require('dotenv').config();
-const mongoose = require('mongoose');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger-output.json');
 var usersRouter = require('./routes/users');
 var todosRouter = require('./routes/todos');
 
-mongoose.connect('mongodb://localhost:27017/todolist').then((res) => {
-  console.log('資料庫連線成功！');
-});
+require('./connections/mongoose');
+
 var app = express();
 
 process.on('uncaughtException', (err) => {
