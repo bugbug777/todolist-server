@@ -20,5 +20,8 @@
     "swagger-autogen": "^2.21.3",
     "swagger-ui-express": "^4.4.0",
     "validator": "^13.7.0"
+  },
+  "engines": {
+    "node": "16.x"
   }
 }
