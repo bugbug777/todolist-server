@@ -47,10 +47,12 @@ const editTodo = AsyncErrorHandler(async (req, res, next) => {
 })
 
 const deleteTodos = AsyncErrorHandler(async (req, res, next) => {
-  await Todo.deleteMany({});
+  const { status } = req.query;
+  await Todo.deleteMany({ status });
+  const todos = await Todo.find({})
   res.json({
     status: 'success',
-    todos: []
+    todos
   })
 })
 
