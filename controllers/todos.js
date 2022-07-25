@@ -29,13 +29,14 @@ const addTodo = AsyncErrorHandler(async (req, res, next) => {
 
 const editTodo = AsyncErrorHandler(async (req, res, next) => {
   const { todoId } = req.params;
-  const { content } = req.body;
+  const { status, content } = req.body;
   const todo = await Todo.findById(todoId);
 
   if (!todo) return AppError(400, '找不到該筆待辦事項！', next);
   if (!content) return AppError(400, '待辦內容不能為空！', next);
 
   const newTodo = await Todo.findByIdAndUpdate(todo._id, {
+    status,
     content
   }, { new: true });
 
