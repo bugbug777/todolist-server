@@ -1,8 +1,21 @@
 var express = require('express');
 var router = express.Router();
 const userController = require('../controllers/users');
+const { authCheck } = require('../modules/auth');
 
 /* GET users listing. */
+router.get('/check', authCheck, userController.checkStatus
+  /*
+    #swagger.description = '確認登入狀態'
+    #swagger.responses[200] = {
+      description: '驗證成功',
+      schema: {
+        "status": "success",
+        "message": "驗證成功！"
+      }
+    }
+  */
+);
 router.get('/', userController.getUsers
   /*
     #swagger.description = '取得所有使用者'

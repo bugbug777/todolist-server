@@ -4,6 +4,13 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const { AppError, AsyncErrorHandler } = require('../services/errorHandler');
 
+const checkStatus = AsyncErrorHandler(async (req, res, next) => {
+  res.json({
+    status: 'success',
+    user: req.user
+  });
+})
+
 const getUsers = AsyncErrorHandler(async (req, res, next) => {
   const users = await User.find({});
   res.json({
@@ -69,6 +76,7 @@ const signIn = AsyncErrorHandler(async (req, res, next) => {
 })
 
 module.exports = {
+  checkStatus,
   getUsers,
   deleteUsers,
   addUser,
